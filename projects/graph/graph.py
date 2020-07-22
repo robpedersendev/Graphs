@@ -110,7 +110,7 @@ class Graph:
             # Check if visited
             # If not visited
             # if v not in visited:
-                # Mark it as visite
+                # Mark it as visited
                 # print(v)
                 # vistied.add(v)
                 # CHECK IF ITS THE TARGET
