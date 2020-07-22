@@ -40,7 +40,15 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Create a queue
+        # Enqueue the starting vertex
+        # Create a set store visited vertices
+        # While the queue is not empty
+            # Dequeue the first vertex
+            # Check if visited
+            # If not visited
+                # Mark it as visited
+                # Enqueue all of its  neighbors
 
     def dft(self, starting_vertex):
         """
