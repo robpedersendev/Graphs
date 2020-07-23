@@ -3,9 +3,10 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
-class Graph:
 
+class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
         self.vertices = {}
 
@@ -60,6 +61,7 @@ class Graph:
                 # Enqueue all of its  neighbors
                 for neighbor in self.get_neighbors(v):
                     q.enqueue(neighbor)
+        return visited
 
     def dft(self, starting_vertex):
         """
@@ -68,15 +70,24 @@ class Graph:
         """
         # MEMORIZE THIS SHIT
         # Create a stack
+        s = Stack()
         # Enqueue the starting vertex
+        s.push(starting_vertex)
         # Create a set store visited vertices
+        visited = set()
         # While the stack is not empty
+        while s.size() > 0:
             # Pop the first vertex
+            v = s.pop()
             # Check if visited
-            # If not visited
+            if v not in visited:
+                # If not visited
+                visited.add(v)
+                print(v)
                 # Mark it as visited
-                # Push all of its  neighbors on to the stack
-
+                for next_vertex in self.get_neighbors(v):
+                    # Push all of its  neighbors on to the stack
+                    s.push(next_vertex)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -86,9 +97,9 @@ class Graph:
         This should be done using recursion.
         """
         # Check if the node has been visited
-            # If not
-                # Mark it as visited
-                # Call dft_recursive on each neighbor
+        # If not
+        # Mark it as visited
+        # Call dft_recursive on each neighbor
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -104,22 +115,22 @@ class Graph:
         # visited = set()
         # While the queue is not empty
         # while q.size() > 0:
-            # Dequeue the first PATH
-            # v = q.dequeue()
-            # GRAB THE VERTEX FROM THE END OF THE PATH
-            # Check if visited
-            # If not visited
-            # if v not in visited:
-                # Mark it as visited
-                # print(v)
-                # vistied.add(v)
-                # CHECK IF ITS THE TARGET
-                    # IF SO, RETURN THE PATH
-                # Enqueue A PATH to all of its neighbors
-                    # MAKE A COPY OF THE PATH
-                    # for neighbor in self.get_neighbors(v):
-                    # ENQUEUE THE COPY
-                    # q.enqueue(neighbor)
+        # Dequeue the first PATH
+        # v = q.dequeue()
+        # GRAB THE VERTEX FROM THE END OF THE PATH
+        # Check if visited
+        # If not visited
+        # if v not in visited:
+        # Mark it as visited
+        # print(v)
+        # vistied.add(v)
+        # CHECK IF ITS THE TARGET
+        # IF SO, RETURN THE PATH
+        # Enqueue A PATH to all of its neighbors
+        # MAKE A COPY OF THE PATH
+        # for neighbor in self.get_neighbors(v):
+        # ENQUEUE THE COPY
+        # q.enqueue(neighbor)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -138,6 +149,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
