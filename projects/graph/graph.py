@@ -89,7 +89,7 @@ class Graph:
                     # Push all of its  neighbors on to the stack
                     s.push(next_vertex)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -97,6 +97,13 @@ class Graph:
         This should be done using recursion.
         """
         # Check if the node has been visited
+        if visited is None:
+            visited = set()
+        visited.add(starting_vertex)
+        print(starting_vertex)
+        for child_vert in self.vertices[starting_vertex]:
+            if child_vert not in visited:
+                self.dft_recursive(child_vert, visited)
         # If not
         # Mark it as visited
         # Call dft_recursive on each neighbor
@@ -107,14 +114,14 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        # Create a stack
+        # Create a queue
         queue = Queue()
         # Enqueue the starting vertex
         # Add a list as a PATH
-        queue.push([starting_vertex])
+        queue.enqueue([starting_vertex])
         # Create a set store visited vertices
         visited = set()
-        # While the stack is not empty
+        # While the queue is not empty
         while queue.size() > 0:
             # Pop the first vertex
             path = queue.dequeue()
@@ -130,8 +137,8 @@ class Graph:
                 for next_vertex in self.get_neighbors(vertex):
                     # Push all of its  neighbors on to the stack by copying data, not a reference of it
                     new_path = list(path)
-                    new_path.append(vertex)
-                    queue.enqueue(next_vertex)
+                    new_path.append(next_vertex)
+                    queue.enqueue(new_path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -162,8 +169,8 @@ class Graph:
                 for next_vertex in self.get_neighbors(vertex):
                     # Push all of its  neighbors on to the stack by copying data, not a reference of it
                     new_path =list(path)
-                    new_path.append(vertex)
-                    stack.push(next_vertex)
+                    new_path.append(next_vertex)
+                    stack.push(new_path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
