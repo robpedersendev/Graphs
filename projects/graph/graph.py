@@ -107,7 +107,31 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-
+        # Create a stack
+        queue = Queue()
+        # Enqueue the starting vertex
+        # Add a list as a PATH
+        queue.push([starting_vertex])
+        # Create a set store visited vertices
+        visited = set()
+        # While the stack is not empty
+        while queue.size() > 0:
+            # Pop the first vertex
+            path = queue.dequeue()
+            vertex = path[-1]
+            # Check if visited
+            if vertex not in visited:
+                # If not visited
+                if vertex == destination_vertex:
+                    # Return path
+                    return path
+                # Mark it as visited
+                visited.add(vertex)
+                for next_vertex in self.get_neighbors(vertex):
+                    # Push all of its  neighbors on to the stack by copying data, not a reference of it
+                    new_path = list(path)
+                    new_path.append(vertex)
+                    queue.enqueue(next_vertex)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
