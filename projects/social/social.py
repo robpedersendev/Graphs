@@ -1,20 +1,27 @@
 import random
+from random import randint
 
 class Queue():
     def __init__(self):
         self.queue = []
+
     def enqueue(self, value):
         self.queue.append(value)
+
     def dequeue(self):
         if self.size() > 0:
             return self.queue.pop(0)
         else:
             return None
+
     def size(self):
         return len(self.queue)
+
+
 class User:
     def __init__(self, name):
         self.name = name
+
 
 class SocialGraph:
     def __init__(self):
@@ -58,20 +65,31 @@ class SocialGraph:
         self.users = {}
         self.friendships = {}
 
+        # Add users
 
+        # Create friendships
+        for i in range(0, num_users):
+            self.add_user(f"User {i + 1}")
 
-    def get_all_social_paths(self, user_id, friend_id):
-        """
-        Takes a user's user_id as an argument
+        # Generate All Friendship combinations
+        possible_friendships = []
 
-        Returns a dictionary containing every user in that user's
-        extended network with the shortest friendship path between them.
+        # Avoid dupes by makings ure first number is smaller than second
+        for user_id in self.users:
+            for friend_id in range(user_id + 1, self.last_id + 1):
+                possible_friendships.append((user_id, friend_id))
 
-        This uses a BFS
+        # Shuffle all possible avg_friendships
+        random.shuffle(possible_friendships)
 
-        The key is the friend's ID and the value is the path.
-        ^^ = a dictionary is being hinted at here
-        """
+        # Create for first x pairs. X is total //2
+        # Creates a friendship from B to A and A to B
+        for i in range(num_users * avg_friendships // 2):
+            friendship = possible_friendships[i]
+            self.add_friendship(friendship[0], friendship[1])
+
+    def get_all_social_paths(self, user_id):
+
         visited = {}  # Note that this is a dictionary, not a set
         # Create a Queue
         queue = Queue()
@@ -87,15 +105,16 @@ class SocialGraph:
 
             # Now we are going to check if the unique_id was visited
             if unique_id not in visited:
-                # Check if they are friends with themselves
-                if unique_id == friend_id:
-                    return friends_list
-                # Otherwise, lets add them as a KEY
-                visited.add(unique_id)
-
-                # Now we are going to grab the specific
-
-
+                # Add to the path
+                visited[unique_id] = friends_list
+                print(friends_list)
+                # For each neighboor
+                for neighbor in self.friendships[unique_id]:
+                    # copy the path and enqueue
+                    new_friends_list= friends_list.copy()
+                    new_friends_list.append(neighbor)
+                    print(friends_list)
+                    friends_list.append(new_friends_list)
 
 
         return visited
@@ -104,6 +123,8 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
+    print("friendships")
     print(sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print(connections)
+    connections = sg.get_all_social_paths(1)
+    print("connections")
+    print(connections)
