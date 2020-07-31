@@ -57,33 +57,10 @@ class SocialGraph:
         self.last_id = 0
         self.users = {}
         self.friendships = {}
-        # !!!! IMPLEMENT ME
-
-        # Add users
-
-        # Create friendships
-        for i in range (0, num_users):
-            self.add_user(f"User {i+1}")
-
-        # Generate All Friendship combinations
-        possible_friendships = []
-
-        # Avoid dupes by makings ure first number is smaller than second
-        for user_id in self.users:
-            for friend_id in range(user_id+1, self.last_id+1):
-                possible_friendships.append((user_id, friend_id))
-
-        # Shuffle all possible avg_friendships
-        random.shuffle(possible_friendships)
-
-        # Create for first x pairs. X is total //2
-        # Creates a friendship from B to A and A to B
-        for i in range(num_users * avg_friendships //2):
-            friendship = possible_friendships[i]
-            self.add_friendship(friendship[0], friendship[1])
 
 
-    def get_all_social_paths(self, user_id):
+
+    def get_all_social_paths(self, user_id, friend_id):
         """
         Takes a user's user_id as an argument
 
@@ -103,7 +80,21 @@ class SocialGraph:
 
         # Loop through the queue
         while queue.size() > 0:
-            #
+            # Set last item in list equal to path
+            friends_list = queue.dequeue()
+            # Set unique_id to the last item in friends_list
+            unique_id = friends_list[-1]
+
+            # Now we are going to check if the unique_id was visited
+            if unique_id not in visited:
+                # Check if they are friends with themselves
+                if unique_id == friend_id:
+                    return friends_list
+                # Otherwise, lets add them as a KEY
+                visited.add(unique_id)
+
+                # Now we are going to grab the specific
+
 
 
 
