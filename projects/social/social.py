@@ -114,7 +114,7 @@ class SocialGraph:
                     new_friends_list= friends_list.copy()
                     new_friends_list.append(neighbor)
                     print(friends_list)
-                    friends_list.append(new_friends_list)
+                    queue.enqueue(new_friends_list)
 
 
         return visited
